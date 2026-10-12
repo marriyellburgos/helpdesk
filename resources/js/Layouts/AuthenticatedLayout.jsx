@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
+import FlashMessage from '@/Components/FlashMessage';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
@@ -30,10 +31,23 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('tickets.index')}
+                                    active={route().current('tickets.*')}
+                                >
+                                    Tickets
+                                </NavLink>
                             </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                            <Link
+                                href={route('tickets.create')}
+                                className="me-4 rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                            >
+                                New Ticket
+                            </Link>
+
                             <div className="relative ms-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -61,9 +75,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route('profile.edit')}
-                                        >
+                                        <Dropdown.Link href={route('profile.edit')}>
                                             Profile
                                         </Dropdown.Link>
                                         <Dropdown.Link
@@ -134,6 +146,15 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('tickets.index')}
+                            active={route().current('tickets.*')}
+                        >
+                            Tickets
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('tickets.create')}>
+                            New Ticket
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -169,6 +190,8 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </header>
             )}
+
+            <FlashMessage />
 
             <main>{children}</main>
         </div>
